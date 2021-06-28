@@ -1,0 +1,76 @@
+type Query {
+    user(id: ID, email: String): [User]
+}
+
+type Mutation {
+    registerUser(user: CreateUserInput!): User
+}
+
+type Product {
+    pid: ID!
+    title: String!
+    description: String
+    min_quantity: Int!
+    max_quantity: Int!
+    price: Float!
+    created_at: String!
+    updated_at: String!
+}
+
+type User {
+    uid: ID!
+    firstName: String
+    lastName: String
+    email: String!
+    password: String
+    billingAddress: Address
+    shippingAddress: Address
+    role: UserRoles!
+    createdAt: String!
+    updatedAt: String!
+}
+
+type Order {
+    oid: ID!
+    buyer_id: ID!
+    items: [OrderItem]
+    total_price: Float
+    created_at: String!
+    updated_at: String!
+}
+
+input CreateUserInput {
+    firstName: String
+    lastName: String
+    email: String!
+    password: String!
+    billingAddress: AddressInput
+    shippingAddress: AddressInput
+    role: UserRoles!
+}
+
+type Address {
+    line_1: String!
+    line_2: String
+    city: String!
+    state: String!
+    zip_code: Int!
+}
+
+input AddressInput {
+    line_1: String!
+    line_2: String
+    city: String!
+    state: String!
+    zip_code: Int!
+}
+
+type OrderItem {
+    product_id: ID!
+    quantity: Int!
+}
+
+enum UserRoles {
+    ADMIN
+    BUYER
+}
